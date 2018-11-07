@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <link rel="stylesheet" href="index.css" type = "text/css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <table class="A" width="300" height="300">
+    <tr>
+      <td id ="a" ></td>
+      <td id ="b" ></td>
+      <td id ="c" ></td>
+    </tr>
+    <tr>
+      <td id ="d" ></td>
+      <td id ="e" ></td>
+      <td id ="f" ></td>
+    </tr>
+    <tr>
+      <td id ="g" ></td>
+      <td id ="h" ></td>
+      <td id ="i"></td>
+    </tr>
+    <style>
+    table {
+      border-collapse: collapse;
+    }
+    td {
+      border: solid 1px;
+      padding: 0.5em;
+    }
+    </style>
+
+  </table>
+
+  <!-- <table>
+  <tr>
+  <th></th>
+  <th class = "first_content">黄色</th>
+  <th class = "secound_content" >青</th>
+</tr>
+<tr>
+<td>数</td>
+<td  class = "first_content">10</td>
+<td class = "secound_content">5</td>
+</tr>
+</table>
+<form class="form" action="index.html" method="get">
+<div>
+<input class ="inp" type ="text" name = "hoge"/>
+</div>
+<div class="">
+<input class ="exp" type="text" name="hoge" disabled/>
+</div>
+<button class ="button" type="submit">GO</button>
+</form>
+<input type="text" id="datepicker"> -->
+<script>
+let mark = "〇"
+$("table td").on("click",function(){
+  if ($(this).text() != ""){
+    return;}
+    $(this).text(mark);
+    if(mark =="〇"){
+      mark = "×"
+    }else{
+      mark = "〇"
+    }
+  })
+
+$('table td').on("click",function(){
+  if(
+    $('#a').text() == $('#b').text() &&  $('#a').text() == $('#c').text() && $('#a').text() != ""||
+    $('#d').text() == $('#e').text() &&  $('#d').text() == $('#f').text() && $('#d').text() != ""||
+    $('#g').text() == $('#h').text() &&  $('#g').text() == $('#i').text() && $('#g').text() != ""||
+    $('#a').text() == $('#d').text() &&  $('#a').text() == $('#g').text() && $('#a').text() != ""||
+    $('#b').text() == $('#e').text() &&  $('#b').text() == $('#h').text() && $('#b').text() != ""||
+    $('#c').text() == $('#f').text() &&  $('#c').text() == $('#i').text() && $('#c').text() != ""||
+    $('#a').text() == $('#e').text() &&  $('#a').text() == $('#i').text() && $('#a').text() != ""||
+    $('#c').text() == $('#e').text() &&  $('#c').text() == $('#g').text() && $('#c').text() != ""
+  ){
+    if(mark == "〇"){
+      mark = "×"
+    }else{
+      mark = "〇"
+    }
+    alert( mark + "が勝ちました")
+  }else if(
+      $('#a').text() != "" && $('#b').text() != "" && $('#c').text() != "" &&
+      $('#d').text() != "" && $('#e').text() != "" && $('#f').text() != "" &&
+      $('#g').text() != "" && $('#h').text() != "" && $('#i').text() != ""
+    ){
+      alert("引き分けです")
+  }}
+)
+
+  //let inp = $(".inp")
+  //let exp =$(".exp")
+  //let but =$(".button")
+  //but.on("click",function(){
+  //if(!confirm('まじ？')){
+  /* キャンセルの時の処理 */
+  //return false;
+  //}else{
+  /*　OKの時の処理 */
+  //location.href = 'index.html';
+  //}
+  //});
+
+  //$('#datepicker').datepicker();
+
+  //let inp = $(".inp")
+  //let exp =$(".exp")
+  //inp
+  //("keyup",function(){
+  //    txt = $(this).val();
+  //    exp.val(txt);
+  //})
+
+
+  //d = document.getElementsByClassName('first_content');
+  //for(i = 0; i < d.length; i++){
+  //alert(d[i].innerText);
+  //d[i].innerText = i;
+  //}
+  //elms = $(".secound_content")
+  //elms.on("click",function(){
+  //$(this).text("clicked");
+  //});
+
+
+  //alert(elms.text())
+
+
+  </script>
+</body>
+</html>
