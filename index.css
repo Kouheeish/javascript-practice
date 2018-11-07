@@ -1,0 +1,37 @@
+.first_content{
+  color:yellow;
+  font-size:32px;
+  background-color: green;
+}
+.secound_content{
+
+  color:blue;
+}
+
+td.ui-datepicker-week-end:first-child a.ui-state-default{
+  background-color: #ffecec;   /* 背景色を設定 */
+  color: #f00!important;       /* 文字色を設定 */
+}
+
+
+
+
+
+
+td.ui-datepicker-week-end:last-child a.ui-state-default{
+  background-color: #eaeaff;   /* 背景色を設定 */
+  color: #00f!important;       /* 文字色を設定 */
+}
+
+.A{
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td {
+  width: 100px;
+  height: 100px;
+  text-align:center;
+  vertical-align: middle;
+  font-size: 50px;
+}
