@@ -14,19 +14,19 @@
 <body>
   <table class="A" width="300" height="300">
     <tr>
-      <td id ="a" ></td>
-      <td id ="b" ></td>
-      <td id ="c" ></td>
+      <td id ="row1-col1" ></td>
+      <td id ="row1-col2" ></td>
+      <td id ="row1-col3" ></td>
     </tr>
     <tr>
-      <td id ="d" ></td>
-      <td id ="e" ></td>
-      <td id ="f" ></td>
+      <td id ="row2-col1" ></td>
+      <td id ="row2-col2" ></td>
+      <td id ="row2-col3" ></td>
     </tr>
     <tr>
-      <td id ="g" ></td>
-      <td id ="h" ></td>
-      <td id ="i"></td>
+      <td id ="row3-col1" ></td>
+      <td id ="row3-col2" ></td>
+      <td id ="row3-col3"></td>
     </tr>
     <style>
     table {
@@ -63,7 +63,10 @@
 </form>
 <input type="text" id="datepicker"> -->
 <script>
-let mark = "〇"
+// N目並べのNの設定
+const row_num = 3;
+let mark = "〇";
+
 $("table td").on("click",function(){
   if ($(this).text() != ""){
     return;}
@@ -76,30 +79,139 @@ $("table td").on("click",function(){
   })
 
 $('table td').on("click",function(){
-  if(
-    $('#a').text() == $('#b').text() &&  $('#a').text() == $('#c').text() && $('#a').text() != ""||
-    $('#d').text() == $('#e').text() &&  $('#d').text() == $('#f').text() && $('#d').text() != ""||
-    $('#g').text() == $('#h').text() &&  $('#g').text() == $('#i').text() && $('#g').text() != ""||
-    $('#a').text() == $('#d').text() &&  $('#a').text() == $('#g').text() && $('#a').text() != ""||
-    $('#b').text() == $('#e').text() &&  $('#b').text() == $('#h').text() && $('#b').text() != ""||
-    $('#c').text() == $('#f').text() &&  $('#c').text() == $('#i').text() && $('#c').text() != ""||
-    $('#a').text() == $('#e').text() &&  $('#a').text() == $('#i').text() && $('#a').text() != ""||
-    $('#c').text() == $('#e').text() &&  $('#c').text() == $('#g').text() && $('#c').text() != ""
-  ){
+  if(checkWin()){
     if(mark == "〇"){
       mark = "×"
     }else{
       mark = "〇"
     }
     alert( mark + "が勝ちました")
-  }else if(
-      $('#a').text() != "" && $('#b').text() != "" && $('#c').text() != "" &&
-      $('#d').text() != "" && $('#e').text() != "" && $('#f').text() != "" &&
-      $('#g').text() != "" && $('#h').text() != "" && $('#i').text() != ""
-    ){
-      alert("引き分けです")
+  }else if(checkDraw()){
+    alert("引き分けです")
   }}
 )
+
+
+// 勝ち筋に沿って勝敗が着いたかどうか判定する
+const checkWin = () => {
+  let check_mark = '';
+  let check_count = 0
+
+  // 同じ行のチェック
+  for (let row_no = 1; row_no <= row_num; row_no++) {
+    check_count = 0
+    for (let col_no = 1; col_no <= row_num; col_no++) {
+      target_mark = $('#row' + row_no + '-col' + col_no).text();
+      // 空だったらこの行のチェックは終わり
+      if (target_mark == '') {
+        break;
+      }
+      if (col_no == 1) {
+        check_mark = target_mark;
+      }
+      if (target_mark == check_mark) {
+        check_count++;
+      } else {
+        // 一回でも違うマークだったら行のチェックは終了
+        break;
+      }
+    }
+    if (check_count == row_num) {
+      return true;
+    }
+  }
+
+  // 同じ列のチェック
+  for (let col_no = 1; col_no <= row_num; col_no++) {
+    check_count = 0
+    for (let row_no = 1; row_no <= row_num; row_no++) {
+      target_mark = $('#row' + row_no + '-col' + col_no).text();
+      // 空だったらこの列のチェックは終わり
+      if (target_mark == '') {
+        break;
+      }
+      if (row_no == 1) {
+        check_mark = target_mark;
+      }
+      if (target_mark == check_mark) {
+        check_count++;
+      } else {
+        // 一回でも違うマークだったら列のチェックは終了
+        break;
+      }
+    }
+    if (check_count == row_num) {
+      return true;
+    }
+  }
+
+  // 左上→右下への斜めのチェック
+  check_count = 0
+  for (let no = 1; no <= row_num; no++) {
+    target_mark = $('#row' + no + '-col' + no).text();
+    // 空だったらチェックは終わり
+    if (target_mark == '') {
+      break;
+    }
+    if (no == 1) {
+      check_mark = target_mark;
+    }
+    if (target_mark == check_mark) {
+      check_count++;
+    } else {
+      // 一回でも違うマークだったら列のチェックは終了
+      break;
+    }
+  }
+  if (check_count == row_num) {
+    return true;
+  }
+
+  // 左下→右上への斜め
+  check_count = 0
+  for (let row_no = row_num; row_no >= 1; row_no--) {
+    col_no = row_num - row_no +1;
+    target_mark = $('#row' + row_no + '-col' + col_no).text();
+    // 空だったらチェックは終わり
+    if (target_mark == '') {
+      break;
+    }
+    if (row_no == row_num) {
+      check_mark = target_mark;
+    }
+    if (target_mark == check_mark) {
+      check_count++;
+    } else {
+      // 一回でも違うマークだったら列のチェックは終了
+      break;
+    }
+  }
+  if (check_count == row_num) {
+    return true;
+  }
+
+  return false;
+}
+
+// 引き分けかどうか判定する
+const checkDraw = () => {
+  let count = 0;
+  // 同じ行のチェック
+  for (let row_no = 1; row_no <= row_num; row_no++) {
+    for (let col_no = 1; col_no <= row_num; col_no++) {
+      target_mark = $('#row' + row_no + '-col' + col_no).text();
+      // 空だったらは終わり
+      if (target_mark == '') {
+        break;
+      }
+      count++;
+    }
+    if (count == row_num ** 2) {
+      return true;
+    }
+    return false;
+  }
+}
 
   //let inp = $(".inp")
   //let exp =$(".exp")
